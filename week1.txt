@@ -1,0 +1,71 @@
+#include &lt;stdio.h&gt;
+
+void bubbleSortAscending(int arr[], int n) {
+int i, j, temp;
+for (i = 0; i &lt; n - 1; i++) {
+for (j = 0; j &lt; n - i - 1; j++) {
+if (arr[j] &gt; arr[j + 1]) {
+temp = arr[j];
+arr[j] = arr[j + 1];
+arr[j + 1] = temp;
+}
+}
+}
+}
+
+void selectionSortDescending(int arr[], int n) {
+int i, j, max_idx, temp;
+for (i = 0; i &lt; n - 1; i++) {
+max_idx = i;
+for (j = i + 1; j &lt; n; j++) {
+if (arr[j] &gt; arr[max_idx]) {
+max_idx = j;
+}
+
+}
+temp = arr[i];
+arr[i] = arr[max_idx];
+arr[max_idx] = temp;
+}
+}
+
+void printArray(int arr[], int n) {
+int i;
+for (i = 0; i &lt; n; i++) {
+printf(&quot;%d &quot;, arr[i]);
+}
+printf(&quot;\n&quot;);
+}
+
+int main() {
+int arr[100], n, i, choice;
+
+printf(&quot;Enter the number of elements in the array: &quot;);
+scanf(&quot;%d&quot;, &amp;n);
+
+printf(&quot;Enter %d integers:\n&quot;, n);
+for (i = 0; i &lt; n; i++) {
+scanf(&quot;%d&quot;, &amp;arr[i]);
+
+}
+
+printf(&quot;Choose sorting method:\n&quot;);
+printf(&quot;1. Bubble Sort (Ascending Order)\n&quot;);
+printf(&quot;2. Selection Sort (Descending Order)\n&quot;);
+printf(&quot;Enter your choice (1 or 2): &quot;);
+scanf(&quot;%d&quot;, &amp;choice);
+
+if (choice == 1) {
+bubbleSortAscending(arr, n);
+printf(&quot;Array after Bubble Sort (Ascending):\n&quot;);
+printArray(arr, n);
+} else if (choice == 2) {
+selectionSortDescending(arr, n);
+printf(&quot;Array after Selection Sort (Descending):\n&quot;);
+printArray(arr, n);
+} else {
+printf(&quot;Invalid choice!\n&quot;);
+}
+
+return 0;
+}
