@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 100
+int S[MAX];
+int top = -1;
+int isFull(){ return top == MAX-1; }
+int isEmpty(){ return top == -1; }
+void push_item(int x){
+if(isFull()) printf("Overflow\n");
+else S[++top]=x;
+}
+void pop_item(){
+if(isEmpty()) printf("Underflow\n");
+else printf("%d popped\n", S[top--]);
+}
+void display_stack(){
+if(isEmpty()){ printf("Stack empty\n"); return; }
+printf("Stack top-> ");
+for(int i=top;i>=0;i--) printf("%d ", S[i]);
+printf("\n");
+}
+void check_palindrome(){
+char str[MAX];
+printf("Enter string: ");
+if(scanf("%s", str)!=1) return;
+int n=strlen(str);
+if(n>MAX){ printf("Input too long\n"); return; }
+int t=-1;
+
+for(int i=0;i<n;i++) t<MAX-1 ? (void)(str[++t]=str[i]) : (void)0;
+int flag=1;
+for(int i=0;i<n;i++){
+if(str[i] != str[t--]){ flag=0; break; }
+}
+printf(flag ? "Palindrome\n" : "Not Palindrome\n");
+}
+void demo_overflow_underflow(){
+int oldTop = top;
+printf("Demonstrating underflow by popping until empty:\n");
+while(!isEmpty()) { pop_item(); }
+pop_item();
+printf("Demonstrating overflow by pushing until full:\n");
+while(!isFull()) push_item(1);
+push_item(2);
+top = oldTop;
+printf("Demo finished (stack restored to previous state if possible)\n");
+}
+int main(){
+int ch,v;
+while(1){
+printf("\n1.Push 2.Pop 3.Palindrome 4.Overflow/Underflow Demo 5.Display
+6.Exit\n");
+if(scanf("%d",&ch)!=1) break;
+switch(ch){
+case 1: printf("Value: "); if(scanf("%d",&v)==1) push_item(v); break;
+case 2: pop_item(); break;
+case 3: check_palindrome(); break;
+case 4: demo_overflow_underflow(); break;
+case 5: display_stack(); break;
+case 6: exit(0);
+default: printf("Invalid\n");
+}
+}
+return 0;
+}
