@@ -1,0 +1,35 @@
+def read_strings(): STR = input("Enter the main string (STR): ") PAT = input("Enter the
+pattern string (PAT): ") REP = input("Enter the replace string (REP): ") return STR, PAT,
+REP
+def is_match_at_position(STR, PAT, start): """ Checks if PAT matches STR starting from
+index 'start'. Returns True if matches, else False. """ if start + len(PAT) > len(STR): return
+False for i in range(len(PAT)): if STR[start + i] != PAT[i]: return False return True
+def find_all_occurrences(STR, PAT): """ Finds all start indices where PAT occurs in STR.
+Returns a list of indices. """ occurrences = [] for i in range(len(STR) - len(PAT) + 1): if
+is_match_at_position(STR, PAT, i): occurrences.append(i) return occurrences
+def replace_all(STR, PAT, REP): """ Replaces all occurrences of PAT in STR with REP.
+Returns the new string. """ occurrences = find_all_occurrences(STR, PAT) if not
+occurrences: return None # Pattern not found
+result = ""
+i = 0
+occ_idx = 0 # index to track occurrences list
+while i < len(STR):
+if occ_idx < len(occurrences) and i == occurrences[occ_idx]:
+# Replace pattern at this position
+result += REP
+i += len(PAT)
+occ_idx += 1
+else:
+result += STR[i]
+i += 1
+return result
+
+def main(): STR, PAT, REP = read_strings()
+replaced_string = replace_all(STR, PAT, REP)
+if replaced_string is None:
+print(f"Pattern '{PAT}' not found in the main string.")
+else:
+
+print(f"String after replacement: {replaced_string}")
+
+if name == "main": main()
